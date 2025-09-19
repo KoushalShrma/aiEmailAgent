@@ -26,24 +26,24 @@
 
 <div align="center">
 
-| 🎯 **Smart Email Generation** | 📊 **Bulk Processing** | 🎨 **Professional UI** |
+| 🎯 **Smart Email Generation** | 📊 **Bulk Processing** | 🎨 **User-Friendly Setup** |
 |:---:|:---:|:---:|
-| AI-powered personalized emails | Excel/CSV upload support | Modern gradient design |
-| 40-50 word ultra-concise format | Batch email generation | Responsive mobile-first |
-| Custom template support | Progress tracking | Dark/light theme support |
+| AI-powered personalized emails | Excel/CSV upload support | Intuitive email configuration |
+| 40-50 word ultra-concise format | Batch email generation | One-click Gmail setup guide |
+| Custom template support | Progress tracking | Color-coded status indicators |
 
 </div>
 
 ### 🔥 Core Capabilities
 
 - **🤖 AI-Powered Generation**: Leverages Groq's LLaMA 3.1 model for intelligent email composition
-- **📧 Professional Templates**: Pre-built templates for various job application scenarios
+- **📧 User-Managed Email**: Each user configures their own email credentials securely through the UI
 - **📊 Excel Integration**: Upload Excel files with job data for bulk email generation
 - **🎨 Modern UI**: Beautiful gradient design with smooth animations and transitions
 - **📱 Mobile Responsive**: Optimized for all device sizes and screen resolutions
-- **🔒 Secure**: Environment-based API key management with no hardcoded secrets
+- **🔒 Secure**: User-managed credentials with environment-based API key management
 - **⚡ Fast**: Optimized Next.js 14 with server-side rendering and edge functions
-- **🌐 Production Ready**: Deployed on Vercel with custom domain support
+- **🌐 Public Ready**: Multi-user platform where anyone can use their own email account
 
 ---
 
@@ -105,21 +105,23 @@ graph TB
    cp .env.local.example .env.local
    ```
    
-   Edit `.env.local` with your credentials:
+   Edit `.env.local` with your Groq API key:
    ```env
    GROQ_API_KEY=gsk_your_actual_groq_api_key_here
-   EMAIL_USER=your_email@gmail.com
-   EMAIL_PASS=your_16_character_app_password
    NEXTJS_URL=http://localhost:3000
    ```
+   
+   **Note:** Email credentials are configured by each user through the application interface.
 
 4. **Run the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+5. **Open your browser & configure email**
+   - Navigate to [http://localhost:3000](http://localhost:3000)
+   - Go to "Email Generator" tab
+   - Click "Email Settings" to configure your email credentials
 
 ---
 
@@ -147,6 +149,14 @@ graph TB
 2. Go to [Google App Passwords](https://myaccount.google.com/apppasswords)
 3. Generate an app password for "Mail"
 4. Use this 16-character password (not your regular Gmail password)
+
+### 🎯 User Workflow
+
+1. **First Visit**: See a blue setup card prompting email configuration
+2. **Email Setup**: Click "Email Settings" → Enter credentials → Test connection
+3. **Profile Setup**: Fill in your name, contact details, and job preferences
+4. **Generate Emails**: Upload Excel file or manually add job applications
+5. **Send Emails**: Review generated emails and send directly from the platform
 
 ---
 
@@ -196,7 +206,11 @@ ai-email-agent/
    NEXTJS_URL=https://your-domain.vercel.app
    ```
 
-   **Note:** Email credentials are configured by each user through the application interface, not through environment variables.
+   **🔒 Security Note:** Email credentials are configured by each user through the application interface, ensuring:
+   - **Privacy**: No shared email accounts
+   - **Security**: Credentials never stored in environment variables
+   - **Flexibility**: Users can use any email provider (Gmail, Outlook, custom SMTP)
+   - **Scalability**: Unlimited users without credential conflicts
 
 3. **Deploy**
    - Click "Deploy"
@@ -256,7 +270,25 @@ ai-email-agent/
 
 ## 📈 Usage Examples
 
-### Basic Email Generation
+### Email Configuration (User Setup)
+
+```typescript
+// Users configure their email settings through the UI
+const emailConfig = {
+  service: "gmail",
+  user: "user@gmail.com", 
+  password: "app_specific_password"
+};
+
+// Validate email configuration
+const response = await fetch('/api/validate-email-config', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(emailConfig)
+});
+```
+
+### AI Email Generation
 
 ```typescript
 // Generate a personalized job application email
@@ -274,8 +306,23 @@ const response = await fetch('/api/generate-email', {
         position: "Software Engineer",
         reason: "Excited about the role and company mission"
       }
-    },
-    customTemplate: "job-application"
+    }
+  })
+});
+```
+
+### Send Email with User Credentials
+
+```typescript
+// Send email using user's configured credentials
+const response = await fetch('/api/send-email', {
+  method: 'POST', 
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    to: "hr@company.com",
+    subject: "Application for Software Engineer Position",
+    body: generatedEmailContent,
+    senderConfig: userEmailConfig // User's email configuration
   })
 });
 ```
@@ -378,13 +425,14 @@ copies or substantial portions of the Software.
 
 ## 🔗 Links
 
-- **Live Demo**: [https://koushal.tech](https://koushal.tech)
-- **Repository**: [https://github.com/KoushalShrma/aiEmailAgent](https://github.com/KoushalShrma/aiEmailAgent)
-- **Issues**: [Report a bug or request a feature](https://github.com/KoushalShrma/aiEmailAgent/issues)
-- **Discussions**: [Join the community discussion](https://github.com/KoushalShrma/aiEmailAgent/discussions)
+- **🚀 Live Demo**: [https://koushal.tech](https://koushal.tech) *(Coming Soon)*
+- **📚 Repository**: [https://github.com/KoushalShrma/aiEmailAgent](https://github.com/KoushalShrma/aiEmailAgent)
+- **🐛 Issues**: [Report a bug or request a feature](https://github.com/KoushalShrma/aiEmailAgent/issues)
+- **💬 Discussions**: [Join the community discussion](https://github.com/KoushalShrma/aiEmailAgent/discussions)
+- **📖 Documentation**: Complete setup guide and API reference included above
 
 ---
 
 <div align="center">
-<sub>⚡ Powered by modern web technologies and AI</sub>
+<sub>⚡ Powered by Next.js, Groq AI, and modern web technologies</sub>
 </div>
