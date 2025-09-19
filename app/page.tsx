@@ -714,6 +714,61 @@ export default function EmailAgentDashboard() {
 
           {/* Email Generator Tab */}
           <TabsContent value="generator" className="space-y-6">
+            {/* Email Configuration Section - Priority */}
+            {!emailConfig && (
+              <Card className="border-2 border-blue-200 bg-blue-50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-blue-700">
+                    <Mail className="h-5 w-5" />
+                    📧 Configure Your Email Settings
+                  </CardTitle>
+                  <CardDescription className="text-blue-600">
+                    <strong>Important:</strong> Set up your email credentials to send job applications directly from the platform. 
+                    Your credentials are stored securely and only used for sending emails.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-white p-4 rounded-lg border border-blue-200">
+                    <h4 className="font-semibold text-blue-700 mb-2">Quick Setup Guide:</h4>
+                    <ol className="list-decimal list-inside space-y-1 text-sm text-blue-600 mb-4">
+                      <li>Click "Email Settings" below</li>
+                      <li>Enter your email address</li>
+                      <li>For Gmail: Use an App Password (not your regular password)</li>
+                      <li>Test the connection and save</li>
+                    </ol>
+                    <div className="flex gap-3">
+                      <EmailConfigDialog onConfigSave={setEmailConfig} currentConfig={emailConfig || undefined} />
+                      <Button variant="outline" size="sm" asChild>
+                        <a href="https://support.google.com/accounts/answer/185833" target="_blank" rel="noopener noreferrer">
+                          📚 Gmail App Password Guide
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Email Configuration Success */}
+            {emailConfig && (
+              <Card className="border-2 border-green-200 bg-green-50">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                        <Mail className="h-4 w-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-green-700">Email Configuration Active</h4>
+                        <p className="text-sm text-green-600">Connected to: {emailConfig.user}</p>
+                      </div>
+                    </div>
+                    <EmailConfigDialog onConfigSave={setEmailConfig} currentConfig={emailConfig || undefined} />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             {/* User Profile Section */}
             <Card>
               <CardHeader>
@@ -844,10 +899,6 @@ export default function EmailAgentDashboard() {
                     </Label>
                     <Input id="resume-upload" type="file" accept=".pdf,.doc,.docx" onChange={handleResumeUpload} />
                     {resumeFile && <p className="text-sm text-muted-foreground">✓ {resumeFile.name} uploaded</p>}
-                  </div>
-
-                  <div className="pt-2">
-                    <EmailConfigDialog onConfigSave={setEmailConfig} currentConfig={emailConfig || undefined} />
                   </div>
                 </CardContent>
               </Card>

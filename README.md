@@ -130,14 +130,23 @@ graph TB
 1. Visit [Groq Console](https://console.groq.com/keys)
 2. Create an account or sign in
 3. Generate a new API key
-4. Copy the key to your environment variables
+4. Add it to your Vercel environment variables (for deployment) or local environment (for development)
 
-### Setting Up Gmail App Password
+### User Email Configuration
 
+**For End Users:** No setup required! Users configure their own email settings directly in the application:
+
+1. Open the application
+2. Go to the "Email Generator" tab
+3. Click "Email Settings" in the blue configuration card
+4. Enter your email and app password
+5. Test and save the configuration
+
+**For Gmail Users:**
 1. Enable 2-Factor Authentication on your Google Account
 2. Go to [Google App Passwords](https://myaccount.google.com/apppasswords)
 3. Generate an app password for "Mail"
-4. Use this 16-character password in `EMAIL_PASS`
+4. Use this 16-character password (not your regular Gmail password)
 
 ---
 
@@ -184,10 +193,10 @@ ai-email-agent/
 2. **Configure Environment Variables**
    ```
    GROQ_API_KEY=your_groq_api_key
-   EMAIL_USER=your_email@gmail.com
-   EMAIL_PASS=your_app_password
    NEXTJS_URL=https://your-domain.vercel.app
    ```
+
+   **Note:** Email credentials are configured by each user through the application interface, not through environment variables.
 
 3. **Deploy**
    - Click "Deploy"
