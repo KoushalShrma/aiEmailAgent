@@ -21,17 +21,13 @@ interface UserProfile {
 
 async function getStoredApiKey(): Promise<string | null> {
   try {
-    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3001'}/api/update-api-key`, {
-      method: 'GET',
-    })
-    if (response.ok) {
-      const data = await response.json()
-      return data.apiKey
-    }
+    // Since this is an internal API call within the same application,
+    // we don't need to use external URL - just return null to use environment variable
+    return null
   } catch (error) {
-    console.log('[v0] Could not fetch stored API key:', error)
+    console.error('[v0] Error getting stored API key:', error)
+    return null
   }
-  return null
 }
 
 function formatEmailWithProperSpacing(emailText: string): string {

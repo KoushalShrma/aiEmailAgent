@@ -20,20 +20,26 @@ export async function POST(req: Request) {
       return Response.json({ error: "Missing required fields: to, subject, or body" }, { status: 400 })
     }
 
-    // Use environment variables or provided config
-    const emailConfig: EmailConfig = senderConfig || {
-      service: "gmail" as const,
-      user: process.env.EMAIL_USER!,
-      password: process.env.EMAIL_PASSWORD!,
-    }
-
-    if (!emailConfig.user || !emailConfig.password) {
-      console.log("[v0] Missing email credentials in environment variables")
+    // Require user-provided email configuration
+    if (!senderConfig) {
+      console.log("[v0] No email configuration provided by user")
       return Response.json(
         {
-          error: "Email credentials not configured. Please set EMAIL_USER and EMAIL_PASSWORD environment variables.",
+          error: "Email configuration required. Please configure your email settings in the application.",
         },
-        { status: 500 },
+        { status: 400 },
+      )
+    }
+
+    const emailConfig: EmailConfig = senderConfig
+
+    if (!emailConfig.user || !emailConfig.password) {
+      console.log("[v0] Missing email credentials in user configuration")
+      return Response.json(
+        {
+          error: "Email credentials not configured. Please set up your email settings in the application.",
+        },
+        { status: 400 },
       )
     }
 
