@@ -425,7 +425,7 @@ copies or substantial portions of the Software.
 
 ## 🔗 Links
 
-- **🚀 Live Demo**: [https://koushal.tech](https://koushal.tech) *(Coming Soon)*
+- **🚀 Live Demo**: [https://koushal.tech](https://koushal.tech)
 - **📚 Repository**: [https://github.com/KoushalShrma/aiEmailAgent](https://github.com/KoushalShrma/aiEmailAgent)
 - **🐛 Issues**: [Report a bug or request a feature](https://github.com/KoushalShrma/aiEmailAgent/issues)
 - **💬 Discussions**: [Join the community discussion](https://github.com/KoushalShrma/aiEmailAgent/discussions)
